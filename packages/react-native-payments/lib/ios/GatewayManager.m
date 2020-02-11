@@ -29,7 +29,7 @@
 #endif
     
 #if __has_include("PKPaymentConverter.h")
-    [supportedGateways addObject:@"cloudPayments"];
+    [supportedGateways addObject:@"cloudpayments"];
 #endif
 
     return [supportedGateways copy];
