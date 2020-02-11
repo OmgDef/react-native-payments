@@ -8,6 +8,12 @@
 #import <BraintreeApplePay/BraintreeApplePay.h>
 #endif
 
+#if __has_include("PKPaymentConverter.h")
+#import "PKPaymentConverter.h"
+#endif
+
+#import "PKPaymentConverter.h"
+
 @implementation GatewayManager
 
 + (NSArray *)getSupportedGateways
@@ -20,6 +26,10 @@
 
 #if __has_include(<BraintreeApplePay/BraintreeApplePay.h>)
     [supportedGateways addObject:@"braintree"];
+#endif
+    
+#if __has_include("PKPaymentConverter.h")
+    [supportedGateways addObject:@"cloudPayments"];
 #endif
 
     return [supportedGateways copy];
@@ -51,6 +61,10 @@
 #if __has_include(<BraintreeApplePay/BraintreeApplePay.h>)
     [self createBraintreeTokenWithPayment:payment completion:completion];
 #endif
+    
+ #if __has_include("PKPaymentConverter.h")
+    [self createCloudPaymentsTokenWithPayment:payment completion:completion];
+ #endif
 }
 
 // Stripe
@@ -108,6 +122,22 @@
             completion(tokenizedApplePayPayment.nonce, nil);
         }
     }];
+#endif
+}
+
+// Cloud Payments
+- (void)configureCloudPaymentsGateway:(NSDictionary *_Nonnull)gatewayParameters
+            merchantIdentifier:(NSString *_Nonnull)merchantId
+{
+#if __has_include("PKPaymentConverter.h")
+#endif
+}
+
+- (void)createCloudPaymentsTokenWithPayment:(PKPayment *)payment completion:(void (^)(NSString * _Nullable, NSError * _Nullable))completion
+{
+#if __has_include("PKPaymentConverter.h")
+    NSString *token = [PKPaymentConverter convertToString: payment];
+    completion(token, nil);
 #endif
 }
 

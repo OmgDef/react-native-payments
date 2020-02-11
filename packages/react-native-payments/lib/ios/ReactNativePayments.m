@@ -155,7 +155,11 @@ RCT_EXPORT_METHOD(handleDetailsUpdate: (NSDictionary *)details
     // Store completion for later use
     self.completion = completion;
     
+    NSLog(@"Your message here");
+
     if (self.hasGatewayParameters) {
+        NSLog(@"Your message here 2");
+
         [self.gatewayManager createTokenWithPayment:payment completion:^(NSString * _Nullable token, NSError * _Nullable error) {
             if (error) {
                 [self handleGatewayError:error];
@@ -165,6 +169,8 @@ RCT_EXPORT_METHOD(handleDetailsUpdate: (NSDictionary *)details
             [self handleUserAccept:payment paymentToken:token];
         }];
     } else {
+        NSLog(@"Your message here 3");
+
         [self handleUserAccept:payment paymentToken:nil];
     }
 }

@@ -85,7 +85,7 @@ export default class PaymentResponse {
 
     this._completeCalled = true;
 
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       try {
         await NativePayments.complete(paymentStatus)
         resolve(undefined)
