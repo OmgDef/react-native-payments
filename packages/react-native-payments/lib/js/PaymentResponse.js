@@ -3,8 +3,8 @@
 // Types
 import type {
   PaymentComplete,
-  PaymentDetailsInit,
-  PaymentAddress
+    PaymentDetailsInit,
+    PaymentAddress
 } from './types';
 
 // Modules
@@ -86,9 +86,12 @@ export default class PaymentResponse {
     this._completeCalled = true;
 
     return new Promise((resolve, reject) => {
-      return NativePayments.complete(paymentStatus, () => {
-        return resolve(undefined);
-      });
+      try {
+        await NativePayments.complete(paymentStatus)
+        resolve(undefined)
+      } catch (error) {
+        reject(error)
+      }
     });
   }
 }
