@@ -123,8 +123,8 @@ export default class PaymentRequest {
 
   constructor(
     methodData: Array<PaymentMethodData> = [],
-    details?: PaymentDetailsInit = [],
-    options?: PaymentOptions = {}
+    details: PaymentDetailsInit = [],
+    options: PaymentOptions = {}
   ) {
     // 1. If the current settings object's responsible document is not allowed to use the feature indicated by attribute name allowpaymentrequest, then throw a " SecurityError" DOMException.
     noop();
