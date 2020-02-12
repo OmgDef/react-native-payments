@@ -136,8 +136,20 @@
 - (void)createCloudPaymentsTokenWithPayment:(PKPayment *)payment completion:(void (^)(NSString * _Nullable, NSError * _Nullable))completion
 {
 #if __has_include("PKPaymentConverter.h")
-    NSString *token = [PKPaymentConverter convertToString: payment];
-    completion(token, nil);
+    @try
+    {
+      // Attempt access to an empty array
+      NSString *token = [PKPaymentConverter convertToString: payment];
+      completion(token, nil);
+    }
+    @catch (NSException *exception)
+    {
+      // Print exception information
+      NSLog( @"NSException caught" );
+      NSLog( @"Name: %@", exception.name);
+      NSLog( @"Reason: %@", exception.reason );
+      completion(nil, nil);
+    }
 #endif
 }
 
